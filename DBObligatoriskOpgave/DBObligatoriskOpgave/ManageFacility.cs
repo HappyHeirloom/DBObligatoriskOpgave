@@ -60,6 +60,7 @@ namespace DBObligatoriskOpgave
 
                 try
                 {
+                    var response = client.PostAsJsonAsync("api/Facilities/", facilityObj).Result;
 
                 }
 
@@ -72,7 +73,7 @@ namespace DBObligatoriskOpgave
 
         }
 
-        public static async void UpdateFacility(int id, string Facility)
+        public static async void DeleteFacility(int id)
         {
             HttpClientHandler handler = new HttpClientHandler();
             handler.UseDefaultCredentials = true;
@@ -84,7 +85,33 @@ namespace DBObligatoriskOpgave
 
                 try
                 {
+                    var response = client.DeleteAsync("api/Facilities/" + id).Result;
+                    Console.WriteLine("Your facility has now been deleted");
+                }
 
+                catch (Exception)
+                {
+                    throw;
+                }
+
+            }
+
+        }
+
+        public static async void UpdateFacility(int id, Facility facilityObj)
+        {
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.UseDefaultCredentials = true;
+            using (var client = new HttpClient(handler))
+            {
+                client.BaseAddress = new Uri(serverUrl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                try
+                {
+                    var response = client.PutAsJsonAsync("api/Facilities/" + id, facilityObj).Result;
+                    Console.WriteLine("Your facility is now updated");
                 }
 
                 catch (Exception)
