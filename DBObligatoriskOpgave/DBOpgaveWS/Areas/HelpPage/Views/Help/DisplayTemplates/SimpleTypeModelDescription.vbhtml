@@ -1,0 +1,3 @@
+@Imports DBOpgaveWS.Areas.HelpPage.ModelDescriptions
+@ModelType SimpleTypeModelDescription
+@Model.Documentation
